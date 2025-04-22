@@ -11,5 +11,6 @@ public class HelperId {
 	String accountNo;
 	String debitCardNo;
 	String creditCardNo;
-	
+	String customerId;
+	String userName;
 }

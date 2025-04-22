@@ -1,5 +1,6 @@
 package com.nik.bankingms.Banking.Management.system.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -20,6 +21,7 @@ public class LoginEmployee {
     @Id
     private String employeeId;
     private String password;
+    @Column(name = "employee_rank")
     private String rank;
     private String status;
 }

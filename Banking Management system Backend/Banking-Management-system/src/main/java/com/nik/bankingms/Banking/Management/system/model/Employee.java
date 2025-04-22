@@ -13,7 +13,6 @@ import java.util.Date;
 public class Employee {
     @Id
     private String id;
-    private String userName;
     private String password;
     private String firstName;
     private String middleName;
@@ -27,4 +26,7 @@ public class Employee {
     private String aadharNo;
     private String panNo;
     private String branchCode;
+    @Column(name = "employee_rank")
+    private String rank;
+    
 }

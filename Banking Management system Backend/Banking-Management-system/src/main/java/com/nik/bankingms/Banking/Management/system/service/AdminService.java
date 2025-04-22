@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.nik.bankingms.Banking.Management.system.model.Employee;
+import com.nik.bankingms.Banking.Management.system.model.EmployeeHelper;
+import com.nik.bankingms.Banking.Management.system.model.LoginEmployee;
 import com.nik.bankingms.Banking.Management.system.repository.AadharRepo;
 import com.nik.bankingms.Banking.Management.system.repository.EmployeeRepo;
 import com.nik.bankingms.Banking.Management.system.repository.PanRepo;
@@ -27,7 +29,21 @@ public class AdminService {
 
 	@Autowired
 	EmployeeRepo employeeRepo;
+	@Autowired
+	EmployeeHelperService employeeHelperService;
+	@Autowired
+	LoginEmployeeService loginEmployeeService;
 	public Employee registerEmployee(Employee requestEmployee){
+		EmployeeHelper employeeHelper=employeeHelperService.getBasicEmployee();
+		long id=employeeHelper.getEmployeeId();
+		id++;
+		requestEmployee.setId(Long.toString(id));
+		LoginEmployee loginEmployee=new LoginEmployee();
+		loginEmployee.setEmployeeId(requestEmployee.getId());
+		loginEmployee.setPassword(requestEmployee.getPassword());
+		loginEmployee.setRank(requestEmployee.getRank());
+		loginEmployee.setStatus("Active");
+		loginEmployeeService.saveLoginDetails(loginEmployee);
 		return employeeRepo.save(requestEmployee);
 	}
 	

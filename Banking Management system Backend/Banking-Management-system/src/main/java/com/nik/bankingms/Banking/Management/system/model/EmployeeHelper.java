@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @Entity
-public class employeeHelper {
+public class EmployeeHelper {
 	@Id
-	String employeeId;
-	String userName;
+	private Long id = 1L; 
+	private long employeeId;
 }
