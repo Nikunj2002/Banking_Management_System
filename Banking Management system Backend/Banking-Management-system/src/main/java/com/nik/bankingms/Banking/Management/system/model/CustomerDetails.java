@@ -10,8 +10,7 @@ import lombok.Data;
 @Entity
 public class CustomerDetails {
 	@Id
-	private String userId;
-	private String password;
+	private String customerId;
 	private String accountNo;
 	private String branchCode;
 	private String aadharNo;
