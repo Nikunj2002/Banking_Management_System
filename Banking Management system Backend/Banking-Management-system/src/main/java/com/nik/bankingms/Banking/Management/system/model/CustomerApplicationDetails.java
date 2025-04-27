@@ -18,7 +18,7 @@ public class CustomerApplicationDetails {
 	private String firstName;
     private String middleName;
     private String lastName;
-	private Date dob;
+	private java.sql.Date dob;
 	private double amount;
 	private String accountType;
 	private String gender;
