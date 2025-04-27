@@ -25,7 +25,7 @@ public class LoginEmployeeService {
 		if(!dbLoginEmployee.getPassword().equals(loginEmployee.getPassword())) {
 			throw new EmployeeLoginDetailsMismatchException("Invalid Password");
 		}
-		if(dbLoginEmployee.getStatus().equals("Deleted")) {
+		if(!dbLoginEmployee.getStatus().equals("Active")) {
 			throw new EmployeeLoginDetailsMismatchException("NO Employee Found");
 		}
 		return dbLoginEmployee;

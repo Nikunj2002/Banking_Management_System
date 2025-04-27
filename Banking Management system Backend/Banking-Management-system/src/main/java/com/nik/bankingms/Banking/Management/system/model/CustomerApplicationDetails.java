@@ -9,8 +9,9 @@ import lombok.Data;
 @Entity
 public class CustomerApplicationDetails {
 	@Id
-	private String userId;
+	private String applicationId;
 	private String password;
+	private String onlineActive; // this is if customer apply for it then only he has access for online work
 	private String branchCode;
 	private String aadharNo;
 	private String panNo;
