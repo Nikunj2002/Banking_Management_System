@@ -1,8 +1,11 @@
 package com.nik.bankingms.Banking.Management.system.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nik.bankingms.Banking.Management.system.exception.NoDataFoundException;
 import com.nik.bankingms.Banking.Management.system.helper.PasswordGenerator;
 import com.nik.bankingms.Banking.Management.system.model.CustomerApplicationDetails;
 import com.nik.bankingms.Banking.Management.system.repository.AadharRepo;
@@ -20,6 +23,27 @@ public class EmployeeService {
 	PasswordGenerator passwordGenerator;
 	@Autowired
 	CustomerApplicationIdService customerApplicationIdService;
+	
+	
+	//both
+	
+	public List<CustomerApplicationDetails> getAllCustomerApplication(){
+		return customerApplicationDetailsRepo.findAll();
+	}
+	
+	public CustomerApplicationDetails getCustomerApplicationById(String applicationId) throws NoDataFoundException {
+		CustomerApplicationDetails response=customerApplicationDetailsRepo.findById(applicationId).orElse(null);
+		if(response==null) {
+			throw new NoDataFoundException("No Data Found or invalid credentials");
+		}
+		return response;
+	}
+	
+	
+	
+	
+	
+	
 	
 	// Grade 1
 	
