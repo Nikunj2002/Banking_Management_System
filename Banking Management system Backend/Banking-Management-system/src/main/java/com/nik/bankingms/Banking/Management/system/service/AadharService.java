@@ -3,6 +3,7 @@ package com.nik.bankingms.Banking.Management.system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nik.bankingms.Banking.Management.system.exception.AadharMisMatchException;
 import com.nik.bankingms.Banking.Management.system.model.Aadhar;
 import com.nik.bankingms.Banking.Management.system.repository.AadharRepo;
 
@@ -70,6 +71,13 @@ public class AadharService {
 
 	    // If all fields match, return true
 	    return true;
+	}
+	public Aadhar getAadharData(String aadharNo) throws AadharMisMatchException {
+		Aadhar aadhar = aadharRepo.findByAadharNo(aadharNo);
+		if(aadhar==null) {
+			throw new AadharMisMatchException("Invalid aadhar number");
+		}
+		return aadhar;
 	}
 	public Aadhar inserAadhar(Aadhar requestAadhar) {
 		return aadharRepo.save(requestAadhar);
