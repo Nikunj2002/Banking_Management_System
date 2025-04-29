@@ -66,8 +66,18 @@ public class EmployeeController {
 	
 	//Grade 1
 	
-//	@PostMapping("/validate-customer")
-//	public ResponseEntity<ApiResponse<CustomerDetails>> validateCustomer()
+	@PostMapping("/validate-customer-{applicantId}")
+	public ResponseEntity<ApiResponse<CustomerDetails>> validateCustomer(@PathVariable String applicantId){
+		try {
+			CustomerDetails customerDetails=employeeService.validateCustomer(applicantId);
+			ApiResponse<CustomerDetails>response=new ApiResponse<>("Success","Account created Successfully",customerDetails);
+			return ResponseEntity.ok(response);
+		}
+		catch(Exception e) {
+			ApiResponse<CustomerDetails>response=new ApiResponse<>("failure",e.getMessage(),null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
 	
 	
 	
