@@ -25,5 +25,12 @@ public class CustomerDetails {
 	private String mobileNo;
 	private String email;
 	private String status;
+	
+	private String landMark;
+	private String street;
+	private String State;
+	private String city;
+	private String pincode;
+	
 	private String kyc;
 }
