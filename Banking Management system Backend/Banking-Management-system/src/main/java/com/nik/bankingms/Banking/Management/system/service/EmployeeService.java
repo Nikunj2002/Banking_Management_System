@@ -51,12 +51,22 @@ public class EmployeeService {
 	
 	public CustomerDetails getCustomerDetails(String accountNo) throws NoDataFoundException {
 		CustomerDetails response=customerDetailsRepo.findByAccountNo(accountNo);
-		if(response==null) {
+		if(response==null || response.getStatus().equalsIgnoreCase("Inactive")) {
 			throw new NoDataFoundException("No customer found with given accountNo");
 		}
+		
 		return response;
 	}
 	
+	//casher
+	public String cashDeposite(String accountNo,double amount) throws NoDataFoundException {
+		CustomerDetails customerDetails=this.getCustomerDetails(accountNo);
+		double databaseAmount=customerDetails.getAmount();
+		double updatedAmount=databaseAmount+amount;
+		customerDetails.setAmount(updatedAmount);
+		customerDetailsRepo.save(customerDetails);
+		return "Success";
+	}
 	
 	
 	

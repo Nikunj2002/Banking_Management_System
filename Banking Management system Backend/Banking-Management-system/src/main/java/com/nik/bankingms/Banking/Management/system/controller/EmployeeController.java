@@ -1,6 +1,7 @@
 package com.nik.bankingms.Banking.Management.system.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nik.bankingms.Banking.Management.system.model.CustomerApplicationDetails;
@@ -79,7 +81,18 @@ public class EmployeeController {
 	
 	
 	//casher
-	
+	@PutMapping("/cash-deposite-{accountNo}")
+	public ResponseEntity<ApiResponse<String>> cashDeposite(@PathVariable String accountNo, @RequestBody Map<String, Double> request){
+		try {
+			String depositeStatus=employeeService.cashDeposite(accountNo,request.get("amount"));
+			ApiResponse<String> response=new ApiResponse<>("Success","Deposite carried successfully",depositeStatus);
+			return ResponseEntity.ok(response);
+		}
+		catch(Exception e) {
+			ApiResponse<String>response=new ApiResponse<>("failure",e.getMessage(),"failure");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
 	
 	
 	//Grade 1
