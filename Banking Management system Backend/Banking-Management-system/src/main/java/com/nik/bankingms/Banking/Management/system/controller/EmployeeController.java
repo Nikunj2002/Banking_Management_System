@@ -63,6 +63,24 @@ public class EmployeeController {
 		}
 	}
 	
+	//
+	@GetMapping("/getCustomerDetails-{accountNo}")
+	public ResponseEntity<ApiResponse<CustomerDetails>> getCustomerDetails(@PathVariable String accountNo){
+		try {
+			CustomerDetails customerDetails=employeeService.getCustomerDetails(accountNo);
+			ApiResponse<CustomerDetails> response=new ApiResponse<>("Success","Customer details fetched successfully",customerDetails);
+			return ResponseEntity.ok(response);
+		}
+		catch(Exception e) {
+			ApiResponse<CustomerDetails>response=new ApiResponse<>("failure",e.getMessage(),null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+	
+	
+	//casher
+	
+	
 	
 	//Grade 1
 	

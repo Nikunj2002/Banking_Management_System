@@ -49,7 +49,13 @@ public class EmployeeService {
 		return response;
 	}
 	
-	
+	public CustomerDetails getCustomerDetails(String accountNo) throws NoDataFoundException {
+		CustomerDetails response=customerDetailsRepo.findByAccountNo(accountNo);
+		if(response==null) {
+			throw new NoDataFoundException("No customer found with given accountNo");
+		}
+		return response;
+	}
 	
 	
 	
@@ -83,7 +89,7 @@ public class EmployeeService {
 		response.setCity(aadhar.getCity());
 		response.setPincode(aadhar.getPincode());
 		response.setMobileNo(aadhar.getMobileNo());
-		
+		customerDetailsRepo.save(response); // entering customer in main customer table
 		helperIdDetails.setCustomerId(String.valueOf(Long.parseLong(helperIdDetails.getCustomerId())+1));
 		helperIdDetails.setAccountNo(String.valueOf(Long.parseLong(helperIdDetails.getAccountNo())+1));
 		helperIdService.updateHelperIdDetails(helperIdDetails);
