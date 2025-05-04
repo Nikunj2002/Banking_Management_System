@@ -94,6 +94,18 @@ public class EmployeeController {
 		}
 	}
 	
+	@PutMapping("/cash-withdrawl-{accountNo}")
+	public ResponseEntity<ApiResponse<String>> cashWithdrawl(@PathVariable String accountNo, @RequestBody Map<String, Double> request){
+		try {
+			String withdrawlStatus=employeeService.cashWithdrawl(accountNo, request.get("amount"));
+			ApiResponse<String> response=new ApiResponse<>("Success","Withdrawl carried successfully",withdrawlStatus);
+			return ResponseEntity.ok(response);
+		}
+		catch (Exception e) {
+			ApiResponse<String> response=new ApiResponse<>("failure",e.getMessage(),"failure");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
 	
 	//Grade 1
 	

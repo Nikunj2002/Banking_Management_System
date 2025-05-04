@@ -67,6 +67,17 @@ public class EmployeeService {
 		customerDetailsRepo.save(customerDetails);
 		return "Success";
 	}
+	public String cashWithdrawl(String accountNo,double amount) throws Exception {
+		CustomerDetails customerDetails=this.getCustomerDetails(accountNo);
+		double databaseAmount=customerDetails.getAmount();
+		if(databaseAmount<amount) {
+			throw new Exception("Insufficient Amount");
+		}
+		double updatedAmount=databaseAmount-amount;
+		customerDetails.setAmount(updatedAmount);
+		customerDetailsRepo.save(customerDetails);
+		return "Success";
+	}
 	
 	
 	
