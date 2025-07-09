@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nik.bankingms.Banking.Management.system.exception.AadharMisMatchException;
+import com.nik.bankingms.Banking.Management.system.exception.InvalidNumberException;
 import com.nik.bankingms.Banking.Management.system.exception.NoDataFoundException;
 import com.nik.bankingms.Banking.Management.system.helper.PasswordGenerator;
 import com.nik.bankingms.Banking.Management.system.model.Aadhar;
@@ -59,7 +60,10 @@ public class EmployeeService {
 	}
 	
 	//casher
-	public String cashDeposite(String accountNo,double amount) throws NoDataFoundException {
+	public String cashDeposite(String accountNo,double amount) throws NoDataFoundException , Exception{
+		if(amount<0) {
+			throw new InvalidNumberException("Amount cannot be less then Zero");
+		}
 		CustomerDetails customerDetails=this.getCustomerDetails(accountNo);
 		double databaseAmount=customerDetails.getAmount();
 		double updatedAmount=databaseAmount+amount;
@@ -68,6 +72,9 @@ public class EmployeeService {
 		return "Success";
 	}
 	public String cashWithdrawl(String accountNo,double amount) throws Exception {
+		if(amount<0) {
+			throw new InvalidNumberException("Amount cannot be less then Zero");
+		}
 		CustomerDetails customerDetails=this.getCustomerDetails(accountNo);
 		double databaseAmount=customerDetails.getAmount();
 		if(databaseAmount<amount) {
