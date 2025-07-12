@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nik.bankingms.Banking.Management.system.model.CustomerApplicationDetails;
 import com.nik.bankingms.Banking.Management.system.model.CustomerDetails;
+import com.nik.bankingms.Banking.Management.system.model.DebitCardApplication;
 import com.nik.bankingms.Banking.Management.system.model.LoginEmployee;
 import com.nik.bankingms.Banking.Management.system.response.ApiResponse;
 import com.nik.bankingms.Banking.Management.system.service.EmployeeService;
@@ -27,6 +28,29 @@ public class EmployeeController {
 	LoginEmployeeService loginEmployeeService;
 	@Autowired
 	EmployeeService employeeService;
+	
+	
+	//common for employee and customer
+	
+	//Apply for debit card
+	
+	@PostMapping("/debitCard-request")
+	public ResponseEntity<ApiResponse<DebitCardApplication>> debitCardRequest(@RequestBody DebitCardApplication debitCardApplicationRequest) {
+		try {
+			DebitCardApplication debitCardApplication=employeeService.debitCardRequest(debitCardApplicationRequest);
+			ApiResponse<DebitCardApplication> response=new ApiResponse<>("Success","Application Submitted Successfully",debitCardApplication);
+			return ResponseEntity.ok(response);
+		}
+		catch(Exception e) {
+			ApiResponse<DebitCardApplication> response=new ApiResponse<>("failure",e.getMessage(),null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+	
+	
+	
+	
+	
 	@GetMapping("/login-employee")
 	public ResponseEntity<ApiResponse<LoginEmployee>> loginEmployee(@RequestBody LoginEmployee requestLoginEmployee) {
 		try {

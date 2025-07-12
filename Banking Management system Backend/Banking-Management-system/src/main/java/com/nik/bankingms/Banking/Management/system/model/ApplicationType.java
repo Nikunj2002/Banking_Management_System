@@ -13,4 +13,5 @@ public class ApplicationType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int typeId;
 	String type;
+	String status; //Active inactive
 }

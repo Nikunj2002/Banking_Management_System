@@ -12,6 +12,7 @@ import com.nik.bankingms.Banking.Management.system.helper.PasswordGenerator;
 import com.nik.bankingms.Banking.Management.system.model.Aadhar;
 import com.nik.bankingms.Banking.Management.system.model.CustomerApplicationDetails;
 import com.nik.bankingms.Banking.Management.system.model.CustomerDetails;
+import com.nik.bankingms.Banking.Management.system.model.DebitCardApplication;
 import com.nik.bankingms.Banking.Management.system.model.HelperId;
 import com.nik.bankingms.Banking.Management.system.repository.AadharRepo;
 import com.nik.bankingms.Banking.Management.system.repository.CustomerApplicationDetailsRepo;
@@ -36,6 +37,19 @@ public class EmployeeService {
 	HelperIdService helperIdService;
 	@Autowired
 	AadharService aadharService;
+	@Autowired
+	DebitCardApplicationService debitCardApplicationService;
+	
+	//common for employee and customer
+	
+	//Apply for debit card
+	public DebitCardApplication debitCardRequest(DebitCardApplication debitCardApplicationRequest) throws NoDataFoundException {
+		return debitCardApplicationService.debitCardRequest(debitCardApplicationRequest);
+	}
+	
+	
+	
+	
 	//both
 	
 	public List<CustomerApplicationDetails> getAllCustomerApplication(){
