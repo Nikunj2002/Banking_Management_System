@@ -93,6 +93,10 @@ public class EmployeeService {
 	
 	public CustomerDetails validateCustomer(String applicationId) throws NoDataFoundException, AadharMisMatchException {
 		CustomerApplicationDetails applicationDetails= this.getCustomerApplicationById(applicationId);
+		System.out.println(applicationDetails.getStatus());
+		if(!applicationDetails.getStatus().equalsIgnoreCase("Pending")) {
+			throw new NoDataFoundException("Application ID "+applicationId+" hasbeen already approved or rejected");
+		}
 		CustomerDetails response=new CustomerDetails();
 		HelperId helperIdDetails=helperIdService.getHelperIdDetais(applicationDetails.getBranchCode());
 		response.setCustomerId(helperIdDetails.getCustomerId());
@@ -118,6 +122,8 @@ public class EmployeeService {
 		response.setPincode(aadhar.getPincode());
 		response.setMobileNo(aadhar.getMobileNo());
 		customerDetailsRepo.save(response); // entering customer in main customer table
+		applicationDetails.setStatus("Approved");
+		applicationDetails.setRemark("Application has been approved successfully");
 		helperIdDetails.setCustomerId(String.valueOf(Long.parseLong(helperIdDetails.getCustomerId())+1));
 		helperIdDetails.setAccountNo(String.valueOf(Long.parseLong(helperIdDetails.getAccountNo())+1));
 		helperIdService.updateHelperIdDetails(helperIdDetails);

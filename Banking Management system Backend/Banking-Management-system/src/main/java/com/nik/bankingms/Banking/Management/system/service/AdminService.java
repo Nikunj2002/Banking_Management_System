@@ -37,7 +37,7 @@ public class AdminService {
 		EmployeeHelper employeeHelper=employeeHelperService.getBasicEmployee();
 		long id=employeeHelper.getEmployeeId();
 		id++;
-		requestEmployee.setId(Long.toString(id));
+		requestEmployee.setId(Long.toString(id));//setting the employee id to the requested user and this id was come from database
 		LoginEmployee loginEmployee=new LoginEmployee();
 		loginEmployee.setEmployeeId(requestEmployee.getId());
 		loginEmployee.setPassword(requestEmployee.getPassword());
